@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^$', views.index,  name='index'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
     url(r'^register/$', views.register, name='register'),
+    url(r'^editProfile/$', views.EditProfileView.as_view(), name='editProfile')
 ]
