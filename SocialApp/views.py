@@ -1,9 +1,8 @@
 import pdb
-
 from django.http import HttpResponse
 
 from django.views.generic import ListView
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 
@@ -18,6 +17,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 def index(request):
     return render(request, 'index.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 
 class LoginView(FormView):
