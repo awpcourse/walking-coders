@@ -95,11 +95,14 @@ class HomeView(FormView, ListView):
     model = Post
     template_name = 'home.html'
     ordering = ["-date_added"]
+    context_object_name = "posts"
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['form'] = self.form_class()
         context['user'] = self.request.user
+        context['messages'] = Message.objects.all().filter(to_user=self.request.user)[:3]
+        context['mess_count'] = len(Message.objects.all().filter(to_user=self.request.user))
         return context
 
     def post(self, request, *args, **kwargs):
