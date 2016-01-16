@@ -220,31 +220,9 @@
 
                 </div>
             </ul>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button class="btn btn-primary" type="submit">Post</button>
-            </form>
-            {% for post in object_list %}
-                <div class="user-post">
-                    <hr>
-                    <h3>
-                        {{ post.text }}
-                    </h3>
-                    <p>
-                        by <b>
-                        <small>{{ post.author }}</small>
-                    </b>
-                        on <b>
-                        <small>{{ post.date_added }}</small>
-                    </b>
-                    </p>
-                </div>
-            {% endfor %}
+
 
             <div id="content" class="span10">
-                {% block wall %}
-                {% endblock %}
                 {% block message %}
                 {% endblock %}
             </div>

@@ -94,7 +94,7 @@ class RegisterView(FormView):
 class HomeView(FormView, ListView):
     form_class = PostForm
     model = Post
-    template_name = 'index.html'
+    template_name = 'home.html'
     ordering = ["-date_added"]
 
     def get_context_data(self, **kwargs):
