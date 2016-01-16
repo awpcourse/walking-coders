@@ -99,6 +99,7 @@ class HomeView(FormView, ListView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['form'] = self.form_class()
+        context['user'] = self.request.user
         return context
 
     def post(self, request, *args, **kwargs):
