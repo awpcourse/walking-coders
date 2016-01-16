@@ -30,7 +30,6 @@ class LoginView(FormView):
         return context
 
     def post(self, request, *args, **kwargs):
-        pdb.set_trace()
         form = UserForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
