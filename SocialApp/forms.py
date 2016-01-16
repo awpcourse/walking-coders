@@ -1,17 +1,16 @@
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import Form, CharField, PasswordInput, DateField, ImageField, Textarea
+from SocialApp.models import Role
 
 
 class UserForm(Form):
-    userName = CharField(max_length=30)
+    username = CharField(max_length=30)
     password = CharField(widget=PasswordInput)
 
 
-class UserRegisterForm(UserForm):
-    firstName = CharField(max_length=30)
-    lastName = CharField(max_length=30)
-    birthDate = DateField(widget=AdminDateWidget)
-    avatar = ImageField()
+class UserLoginForm(Form):
+    username = CharField(max_length=30)
+    password = CharField(widget=PasswordInput)
 
 
 class CompanyRegisterForm(UserForm):
@@ -30,3 +29,4 @@ class MessageForm(Form):
     text = CharField(widget=Textarea(
             attrs={'cols': 100, 'rows': 5, 'placeholder': "What's on your mind?"}),
             label='')
+

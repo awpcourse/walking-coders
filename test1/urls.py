@@ -22,8 +22,7 @@ urlpatterns = [
 
     url(r'^$', views.HomeView.as_view(),  name='index'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
-    url(r'^register/$', views.register, name='register'),
     url(r'^home/$', views.HomeView.as_view(), name='home'),
     url(r'^message/$', views.MessageView.as_view(), name='message'),
-
+    url(r'^register/$', views.RegisterView.as_view(), name='register'),
 ]

@@ -1,19 +1,18 @@
-from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
-
 from django.http import HttpResponse
 
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 
-from SocialApp.forms import UserForm, PostForm
+from SocialApp.forms import PostForm
 from SocialApp.models import Post
 
 from SocialApp.forms import UserForm, MessageForm
-from SocialApp.models import Message
+from SocialApp.models import Message, User, UserProfile, Role
+
+from django.contrib.auth.forms import UserCreationForm
+
 
 
 def index(request):
@@ -45,8 +44,28 @@ class LoginView(FormView):
             return redirect('index')
 
 
-def register(request):
-    return render(request, 'register.html')
+class RegisterView(FormView):
+    form_class = UserCreationForm
+    template_name = 'register.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RegisterView, self).get_context_data(**kwargs)
+        context['form'] = self.form_class()
+        context['roles'] = Role.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = UserCreationForm(request.POST)
+        fullname = request.POST['fullname']
+        select_role = request.POST.get('select_role')
+        if form.is_valid():
+            new_user = form.save()
+            UserProfile.objects.create(name=fullname,
+                                       role=Role.objects.get(pk=select_role),
+                                       id_user=new_user)
+            return redirect('login')
+        else:
+            return redirect('register')
 
 
 class HomeView(FormView, ListView):
@@ -59,6 +78,14 @@ class HomeView(FormView, ListView):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['form'] = self.form_class()
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            user_post = Post(text=text, author=request.user)
+            user_post.save()
+        return redirect('index')
 
 
 class MessageView(FormView, ListView):
