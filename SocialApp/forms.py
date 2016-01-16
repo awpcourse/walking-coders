@@ -24,7 +24,7 @@ class EditProfileForm(Form):
 
 class PostForm(Form):
     text = CharField(widget=Textarea(
-            attrs={'cols': 100, 'rows': 5, 'placeholder': "Say something"}),
+            attrs={'cols': 300, 'rows': 5, 'placeholder': "Say something"}),
             label='')
 
 
