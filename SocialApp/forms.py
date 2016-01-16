@@ -1,6 +1,4 @@
-from django.contrib.admin.widgets import AdminDateWidget
 from django.forms import Form, CharField, PasswordInput, DateField, ImageField, Textarea
-from SocialApp.models import Role
 
 
 class UserForm(Form):
@@ -16,6 +14,12 @@ class UserLoginForm(Form):
 class CompanyRegisterForm(UserForm):
     name = CharField(max_length=30)
     cover = ImageField()
+
+
+class EditProfileForm(Form):
+    fullname = CharField(required=True)
+    birthdate = DateField()
+    avatar = ImageField()
 
 
 class PostForm(Form):
