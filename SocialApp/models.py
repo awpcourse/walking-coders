@@ -35,7 +35,7 @@ class Notification(models.Model):
 
 class Post(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User)
+    author = models.ForeignKey(User)
     text = models.TextField()
     date_added = models.DateTimeField(default=datetime.now())
 

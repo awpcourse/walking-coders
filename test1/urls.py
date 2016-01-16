@@ -19,8 +19,11 @@ from SocialApp import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.index,  name='index'),
+
+    url(r'^$', views.HomeView.as_view(),  name='index'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
-    url(r'^register/$', views.register, name='register'),
-    url(r'^editProfile/$', views.EditProfileView.as_view(), name='editProfile')
+    url(r'^editProfile/$', views.EditProfileView.as_view(), name='editProfile'),
+    url(r'^home/$', views.HomeView.as_view(), name='home'),
+    url(r'^message/$', views.MessageView.as_view(), name='message'),
+    url(r'^register/$', views.RegisterView.as_view(), name='register'),
 ]
