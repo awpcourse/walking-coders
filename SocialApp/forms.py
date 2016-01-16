@@ -1,5 +1,5 @@
-from django.forms import Form, CharField, PasswordInput, DateField, ImageField
 from django.contrib.admin.widgets import AdminDateWidget
+from django.forms import Form, CharField, PasswordInput, DateField, ImageField, Textarea
 from SocialApp.models import Role
 
 
@@ -13,8 +13,20 @@ class UserLoginForm(Form):
     password = CharField(widget=PasswordInput)
 
 
-class UserRegisterForm(UserForm):
-    ROLE_CHOICES = ('Company', 'Client')
-    fullname = CharField(max_length=50)
-    select_role = CharField(max_length=30)
+class CompanyRegisterForm(UserForm):
+    name = CharField(max_length=30)
+    cover = ImageField()
+
+
+class PostForm(Form):
+    text = CharField(widget=Textarea(
+            attrs={'cols': 100, 'rows': 5, 'placeholder': "Say something"}),
+            label='')
+
+
+class MessageForm(Form):
+    username = CharField(max_length=80)
+    text = CharField(widget=Textarea(
+            attrs={'cols': 100, 'rows': 5, 'placeholder': "What's on your mind?"}),
+            label='')
 
