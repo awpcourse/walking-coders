@@ -19,6 +19,7 @@ class LoginView(FormView):
         context['form'] = self.form_class()
         return context
 
+
     def post(self, request, *args, **kwargs):
         form = UserForm(request.POST)
         username = request.POST['username']
@@ -33,3 +34,8 @@ class LoginView(FormView):
         else:
             login(request, user)
             return redirect('index')
+
+
+def register(request):
+    return render(request, 'register.html')
+
