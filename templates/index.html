@@ -181,8 +181,63 @@
         </div>
 
         <div id="content" class="span10">
-            {% block wall %}
-            {% endblock %}
+            <ul class="breadcrumb">
+    <li>
+        <i class="icon-home"></i>
+        <a href="index.html">Home</a>
+        <i class="icon-angle-right"></i>
+    </li>
+    <li><a href="#">Dashboard</a></li>
+    <div class="row-fluid">
+            ANA ARE MERE
+
+            </div>
+
+            <div class="row-fluid">
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+
+
+
+            <div class="row-fluid">
+
+            </div>
+
+            <div class="row-fluid">
+
+
+
+            </div>
+            <div class="row-fluid hideInIE8 circleStats">
+
+
+            </div>
+
+            <div class="row-fluid">
+
+
+            </div>
+</ul>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Post</button>
+</form>
+{% for post in object_list %}
+    <div class="user-post">
+      <hr>
+      <h3>
+        {{ post.text }}
+      </h3>
+      <p>
+        by <b><small>{{ post.author }}</small></b>
+        on <b><small>{{ post.date_added }}</small></b>
+      </p>
+    </div>
+  {% endfor %}
         </div>
 </div>
 </div>
