@@ -129,8 +129,6 @@ class MessageView(FormView, ListView):
         form = self.form_class(request.POST)
         if form.is_valid():
             text = form.cleaned_data['text']
-            user_post = Post(text=text, author=request.user)
-            user_post.save()
             user_name = form.cleaned_data['username']
             to_user = User.objects.get(username=user_name)
             if to_user != request.user:
@@ -142,3 +140,12 @@ class MessageView(FormView, ListView):
                     return HttpResponse('Nu avem user')
             else:
                 return HttpResponse('Error')
+
+
+class CompanyView(ListView):
+    model = UserProfile
+    template_name = 'company_list.html'
+
+    def get_queryset(self):
+        companies = UserProfile.objects.filter(role=Role.objects.get(id=2)).all()
+        return companies

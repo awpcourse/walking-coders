@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+{% block message %}
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            <a href="index.html">Home</a>
+            <i class="icon-angle-right"></i>
+        </li>
+        <li><a href="{% url 'companies' %}">Company</a></li>
+        <div>
+            {% for m in object_list %}
+                <ul class="messagesList">
+
+                    <li>
+                        <span class="from">
+                            <span class="glyphicons star"><i></i></span>{{ m.name }}
+                        </span>
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+    </ul>
+{% endblock %}

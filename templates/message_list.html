@@ -12,7 +12,7 @@
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
                 Add message
             </button>
-        </div>
+
 
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
@@ -51,20 +51,21 @@
                         </form>
                     </div>
                 </div>
+            </div>
+                {% for m in object_list %}
+                    <ul class="messagesList">
 
-            {% for m in object_list %}
-                <ul class="messagesList">
-
-                    <li>
+                        <li>
                         <span class="from"><span class="glyphicons star"><i></i></span>{{ m.from_user }}
                             <span
                                     class="glyphicons paperclip"><i></i>
                             </span>
 
                          <span>{{ m.content }}</span></span>
-                    </li>
-                </ul>
-            {% endfor %}
+                        </li>
+                    </ul>
+                {% endfor %}
+
         </div>
     </ul>
 {% endblock %}
