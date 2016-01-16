@@ -103,10 +103,14 @@ class HomeView(FormView, ListView, LoginRequiredMixin):
     model = Post
     template_name = 'home.html'
     ordering = ["-date_added"]
+    context_object_name = "posts"
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context['form'] = self.form_class()
+        context['user'] = self.request.user
+        context['messages'] = Message.objects.all().filter(to_user=self.request.user)[:3]
+        context['mess_count'] = len(Message.objects.all().filter(to_user=self.request.user))
         return context
 
     def post(self, request, *args, **kwargs):
@@ -136,8 +140,6 @@ class MessageView(FormView, ListView, LoginRequiredMixin):
         form = self.form_class(request.POST)
         if form.is_valid():
             text = form.cleaned_data['text']
-            user_post = Post(text=text, author=request.user)
-            user_post.save()
             user_name = form.cleaned_data['username']
             to_user = User.objects.get(username=user_name)
             if to_user != request.user:
@@ -149,3 +151,12 @@ class MessageView(FormView, ListView, LoginRequiredMixin):
                     return HttpResponse('Nu avem user')
             else:
                 return HttpResponse('Error')
+
+
+class CompanyView(ListView):
+    model = UserProfile
+    template_name = 'company_list.html'
+
+    def get_queryset(self):
+        companies = UserProfile.objects.filter(role=Role.objects.get(id=2)).all()
+        return companies

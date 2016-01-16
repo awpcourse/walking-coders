@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^home/$', views.HomeView.as_view(), name='home'),
     url(r'^message/$', views.MessageView.as_view(), name='message'),
     url(r'^register/$', views.RegisterView.as_view(), name='register'),
+    url(r'^companies/$', views.CompanyView.as_view(), name='companies'),
     url(r'^logout/$', views.logout_view, name='logout')
 ]

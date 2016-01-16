@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     id_user = models.ForeignKey(User)
     name = models.CharField(max_length=50)
     birthday = models.DateField(blank=True, null=True)
-    avatar = models.ImageField(upload_to="images/", width_field=50, height_field=50, max_length=100)
+    avatar = models.ImageField(upload_to="images/")
     role = models.ForeignKey(Role)
 
 
