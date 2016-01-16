@@ -1,6 +1,7 @@
 import pdb
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -15,8 +16,10 @@ from SocialApp.models import Message, User, UserProfile, Role
 from django.contrib.auth.forms import UserCreationForm
 
 
-def index(request):
-    return render(request, 'index.html')
+class LoginRequiredMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
 
 
 def logout_view(request):
@@ -31,6 +34,7 @@ class LoginView(FormView):
     def get_context_data(self, **kwargs):
         context = super(LoginView, self).get_context_data(**kwargs)
         context['form'] = self.form_class()
+        user = self.request.user
         return context
 
     def post(self, request, *args, **kwargs):
@@ -49,7 +53,7 @@ class LoginView(FormView):
             return redirect('index')
 
 
-class EditProfileView(FormView):
+class EditProfileView(LoginRequiredMixin, FormView):
     form_class = EditProfileForm
     template_name = 'editProfile.html'
 
@@ -94,7 +98,7 @@ class RegisterView(FormView):
             return redirect('register')
 
 
-class HomeView(FormView, ListView):
+class HomeView(FormView, ListView, LoginRequiredMixin):
     form_class = PostForm
     model = Post
     template_name = 'home.html'
@@ -114,7 +118,7 @@ class HomeView(FormView, ListView):
         return redirect('index')
 
 
-class MessageView(FormView, ListView):
+class MessageView(FormView, ListView, LoginRequiredMixin):
     model = Message
     form_class = MessageForm
     template_name = 'message_list.html'
