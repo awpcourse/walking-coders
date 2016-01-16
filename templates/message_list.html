@@ -1,0 +1,69 @@
+{% extends 'index.html' %}
+
+{% block message %}
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            <a href="index.html">Home</a>
+            <i class="icon-angle-right"></i>
+        </li>
+        <li><a href="{% url 'message' %}">Messages</a></li>
+        <div class="row-fluid">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                Add message
+            </button>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Message</h4>
+                        </div>
+                        <form class="form-horizontal" method="post">
+                            <div class="modal-body">
+
+                                {% csrf_token %}
+
+                                <fieldset>
+
+                                    <div class="input-prepend" title="Username">
+                                        <span class="add-on"><i class="halflings-icon user"></i></span>
+                                        <input class="input-large span10" name="username" id="username" type="text"
+                                               placeholder="type username"/>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                    <div class="input-prepend" title="Text">
+                                        <span class="add-on"><i class="halflings-icon lock"></i></span>
+                                        <textarea col="100" rows="5" title="Text" name="text"></textarea>
+                                    </div>
+
+                                </fieldset>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% for m in object_list %}
+                <ul class="messagesList">
+
+                    <li>
+                        <span class="from"><span class="glyphicons star"><i></i></span>{{ m.from_user }}
+                            <span
+                                    class="glyphicons paperclip"><i></i>
+                            </span>
+
+                         <span>{{ m.content }}</span></span>
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+    </ul>
+{% endblock %}
