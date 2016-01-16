@@ -19,7 +19,7 @@ from SocialApp import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.index),
-    url(r'^login/', views.login),
-    url(r'^register/', views.register),
+    url(r'^$', views.index,  name='index'),
+    url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^register/$', views.register, name='register'),
 ]

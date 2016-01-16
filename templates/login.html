@@ -12,7 +12,8 @@
                 </div>
                 {% block content %}
                     <h2>Login to your account</h2>
-                    <form class="form-horizontal" action="index.html" method="post">
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
                         <fieldset>
 
                             <div class="input-prepend" title="Username">
@@ -42,7 +43,7 @@
                     <p>
                         No problem, <a href="#">click here</a> to get a new password.
                     </p>
-                    <h3>Register <a href="#">here</a>!</h3>
+                    <h3>Register <a href="{% url 'register' %}">here</a>!</h3>
                 {% endblock %}
             </div><!--/span-->
         </div><!--/row-->

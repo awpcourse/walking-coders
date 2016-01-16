@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>Register new account</h2>
-    <form class="form-horizontal" action="index.html" method="post">
+    <form class="form-horizontal" method="post">
         <fieldset>
             <div class="input-prepend" title="Username">
                 <span class="add-on"><i class="halflings-icon user"></i></span>
@@ -38,6 +38,6 @@
     <hr>
     <h3>Have already an account?</h3>
     <p>
-        <a href="#">Click here</a> to login.
+        <a href="{% url 'login' %}">Click here</a> to login.
     </p>
 {% endblock %}
